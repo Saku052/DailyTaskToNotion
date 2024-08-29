@@ -1,6 +1,6 @@
 function createPage() {
   const NOTION_API_KEY = PropertiesService.getScriptProperties().getProperty('Notion_Api_Key');
-  const database_id = '54f5799894b04783be44097ae513fb26';
+  const database_id = '';
 
   const url = 'https://api.notion.com/v1/pages';
   const url2 = 'https://api.notion.com/v1/databases/' + database_id + '/query';
@@ -14,13 +14,9 @@ function createPage() {
   // 毎日やるタスクのリスト
   let todo = [
     [
-    '読書/十角館',
-    '新聞/apple news',
-    '新聞/news picks'
+    'Daily Task'
   ],[
-    '休息',
-    '内職',
-    '内職'
+    'Genre of task'
   ]]
 
   let i = 0;
