@@ -1,5 +1,5 @@
 function createPage() {
-  const NOTION_API_KEY = PropertiesService.getScriptProperties().getProperty('Notion_Api_Key');
+  const NOTION_API_KEY = '';
   const database_id = '';
 
   const url = 'https://api.notion.com/v1/pages';
@@ -11,12 +11,15 @@ function createPage() {
     'Notion-Version': '2022-06-28',
   };
 
-  // 毎日やるタスクのリスト
   let todo = [
     [
-    'Daily Task'
+    'Daily Task 1',
+    'Daily Task 2',
+    'Daily Task 3'
   ],[
-    'Genre of task'
+    'Genre of Task 1',
+    'Genre of Task 2',
+    'Genre of Task 3'
   ]]
 
   let i = 0;
@@ -37,13 +40,13 @@ function ReciveData(url, headers) {
     'filter': {
         'and' : [
           {
-            'property': '行動予定日', 
+            'property': 'Date',  // Change the 'Date' to your name of property
             'date': {
               'is_empty' : true
             }
           },
           {
-            "property": "ステータス",
+            "property": "Status", // Change the 'Status' to your name of property
             "status": {
               "equals": "Todo"
             }
@@ -62,7 +65,7 @@ function ReciveData(url, headers) {
 
   let array =[];
   for(let item of tables.results){
-    let name = item.properties['名前'].title[0].plain_text;
+    let name = item.properties['Name'].title[0].plain_text; // Change the 'Name' to your name of property
     array.push(name);
   }
 
@@ -73,7 +76,7 @@ function SendData(url, database_id, headers, todo, genre) {
   const payload = {
     'parent': { 'database_id': database_id },
     'properties': {
-      '名前': {
+      'Name': {  // Change the 'Name' to your name of property
         'title': [
           {
             'text': {
@@ -82,13 +85,13 @@ function SendData(url, database_id, headers, todo, genre) {
           }
         ]
       },
-      "ジャンル": {
+      "Genre": {  // Change the 'Genre' to your name of property
         "type": "select",
         "select": {
               "name": genre
         }
       },
-      "ステータス": {
+      "Status": {  // Change the 'Status' to your name of property
             "type": "status",
             "status": {
                 "name": "Todo"
